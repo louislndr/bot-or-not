@@ -1,0 +1,14 @@
+Confusion Matrix (en)
+========================================
+                  Predicted Bot  Predicted Human
+  Actual Bot      TP=55         FN=11
+  Actual Human    FP=3          TN=206
+
+  Total users: 275
+  Bots in dataset: 66 (24.0%)
+
+CV Results:
+  logistic_regression: conservative_score=28.0 P=0.846 R=0.833 F1=0.840 threshold=0.65
+  random_forest: conservative_score=62.0 P=0.980 R=0.758 F1=0.855 threshold=0.65
+  gradient_boosting: conservative_score=70.0 P=0.948 R=0.833 F1=0.887 threshold=0.65
+  rule_based: conservative_score=-54.0 P=0.844 R=0.409 F1=0.551 threshold=None

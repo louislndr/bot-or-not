@@ -1,0 +1,290 @@
+
+=== Error Analysis (en) ===
+
+FALSE POSITIVES (humans flagged as bots): 42
+
+  [FP] user_id=cb1ae84d-c526-b508-af03-312ec7c55648 score=0.889
+  username=JhenPhillip name=Jhen Phillip
+  tweet_count=14 z_score=-0.64
+  hashtag_rate=0.00 link_rate=0.29
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=Founder • President at West Village Electrical 🇺🇸
+  Sample posts:
+    - WWE Smackdown is on tv! Let’s go!
+    - The Rock has a new version of his theme song every week lmao.
+
+Smackdown
+    - The Rock stays cookin’
+
+WWE Smackdown
+    - Another perfect landing for Falcon 9. https://t.co/twitter_link
+    - That Jimmy Uso promo cooked just now! 
+
+YEET vs NO YEET!
+
+WWE Smackdown
+
+  [FP] user_id=76c1e83b-31c5-828f-88b6-f7ae58d63a72 score=0.889
+  username=percystarzzz name=☆ percy ☆ (new account)
+  tweet_count=20 z_score=-0.35
+  hashtag_rate=0.00 link_rate=0.20
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=19 | ✡︎ ⚣
+  Sample posts:
+    - i wish i could understand birds i wanna know what they’re chirping about
+    - would kill for a good burger rn
+    - i don’t care if people vape like ruin your lungs idc but i do think i’m better than you cause i don’t 🤷
+    - one of my biggest irrational fears is being an abusive or controlling person like logically i know i’m not but also it’s
+    - like i KNOW asking when someone will be home just so you know theyre safe and just to plan around it is no where near th
+
+  [FP] user_id=3f3b4b62-74c5-89d0-ae85-79e4f89cbda2 score=0.800
+  username=kamkenobi name=Kambit🃏
+  tweet_count=38 z_score=0.51
+  hashtag_rate=0.08 link_rate=0.97
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=Playin' for keeps is still playin'
+  Sample posts:
+    - My top 3 anticipated DCU projects https://t.co/twitter_link
+    - I stopped watching The Mandalorian 1 year ago https://t.co/twitter_link
+    - It's just ugly lol https://t.co/twitter_link
+    - I quote Talladega Nights every single day of my life https://t.co/twitter_link https://t.co/twitter_link
+    - Gambit wasn't in it https://t.co/twitter_link
+
+  [FP] user_id=94ab6deb-d359-8353-be40-0ffa1113abfe score=0.936
+  username=opaxprime020 name=@BallOut
+  tweet_count=12 z_score=-0.73
+  hashtag_rate=0.00 link_rate=0.83
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=NBA fan, DallasMavs fan, Kyrie fan. Loves to watch the Prem. MMA lover. Art crea
+  Sample posts:
+    - Tatum gets hate for no reason, Shai says a sentence and is cringe. While curry gets all this for what? The nba community
+    - Zion has been on fire lately and he’s going insane this game! Hope he can stay on top if it. https://t.co/twitter_link
+    - This is a great, well deserved opportunity for IT. I feel he won’t disappoint. https://t.co/twitter_link
+    - The pelicans have been playing amazing lately other than that Cavs game. https://t.co/twitter_link
+    - Lebron James with 18 points and 8 assists! Showing why he’s called King James! https://t.co/twitter_link
+
+  [FP] user_id=6717583b-cf8e-b727-97b1-1e06c46f09da score=0.984
+  username=MofokengXis name=chriszico🇿🇦
+  tweet_count=7 z_score=-0.97
+  hashtag_rate=0.14 link_rate=1.00
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=Letterboxd https://t.co/twitter_link
+                         Fav Movie: Top Gun
+  Sample posts:
+    - Man is this even a thing?? https://t.co/twitter_link
+    - Nope
+Infinity War
+La la land
+Drive https://t.co/twitter_link
+    - Someone check Yorgos internet search history https://t.co/twitter_link
+    - #InYourHands nearly a 1mil views. 🔥🔥 https://t.co/twitter_link
+    - Comfort movie marathon: https://t.co/twitter_link https://t.co/twitter_link
+
+  [FP] user_id=f4fb2849-7d6f-8476-ad56-42d6cd867ed1 score=0.778
+  username=sadwinnipegfan name=Gary
+  tweet_count=28 z_score=0.03
+  hashtag_rate=0.04 link_rate=0.18
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=🐺🐺🐺🐺🐺🐺
+  Sample posts:
+    - I want to open a business called "Gary the Groomer". Basically it is a dog grooming business.
+    - i make 28.34x that in a year 🤷‍♂️ https://t.co/twitter_link
+    - What does LeBron have that I don't? https://t.co/twitter_link
+    - lowkey need a mccarthy car crash
+    - mfs got me scared that we r gonna trade up for mccarthy now. fuck u all
+
+  [FP] user_id=fff56403-acbe-8d16-ae44-3799c4d632e5 score=1.000
+  username=portogooner name=portogooner
+  tweet_count=4 z_score=-1.11
+  hashtag_rate=0.00 link_rate=0.50
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=#Arsenal #FCPorto #TeamLH
+  Sample posts:
+    - The guy in the pic https://t.co/twitter_link
+    - Men can be so stupid sometimes https://t.co/twitter_link
+    - What a game.. how is your heart @mention ?
+    - Utd vs City in the semi final please
+
+  [FP] user_id=f4296086-1187-b9b4-a002-11b45ce40d78 score=0.881
+  username=dblhockeystix name=doublehockeystix
+  tweet_count=19 z_score=-0.40
+  hashtag_rate=0.05 link_rate=0.37
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=NOT YOUR DADDY’S HOCKEY BRAND & probably not your moms either • we’re cooler on 
+  Sample posts:
+    - My man cro has aged 500 years and this season ain’t even over yet
+    - Did minty just score… for the other team?
+    - Oh seeing Monny as a j*t is so devastating 😞
+    - Why do I even watch hockey
+    - Bruins love a tie game. Can’t play unless it’s tied. Regulation win? Never heard of her
+
+  [FP] user_id=ee21ede8-54b7-b319-bc27-d04d58e2454d score=0.962
+  username=AGLR_23 name=Angelo 🧱
+  tweet_count=22 z_score=-0.26
+  hashtag_rate=0.00 link_rate=0.77
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=Recreational Shitposter
+  Sample posts:
+    - Time to tap in on this Spurs-Nuggets game
+    - Well it was a good run ig 🫡 https://t.co/twitter_link
+    - Yuno Sykk the D.Livery Boy makes his Blacklist Race return today! https://t.co/twitter_link
+    - The Nuggets are up against the Spurs by only 6 points now https://t.co/twitter_link
+    - Its back to a 12 point lead again 🤦‍♂️ https://t.co/twitter_link
+
+  [FP] user_id=b5860692-1c2e-b30a-a56f-f82ca05acb99 score=0.650
+  username=PMAbets name=PMAbets
+  tweet_count=11 z_score=-0.78
+  hashtag_rate=2.82 link_rate=0.45
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=I'm your guy for footy and props! #PositiveMentalAttitude #RedsOnTop #Chiefs #Ro
+  Sample posts:
+    - You know what to do. #GBR https://t.co/twitter_link
+    - 🏀CBB PROP OF THE DAY🏀
+
+K. Tominaga Over 2.5 threes
+
+#Huskers #GBR #propbet #CBB #BigTen #GamblingX https://t.co/twitter_
+    - Big ten officials are the worst in all the land. My god.
+    - What a choke job. 
+
+Also not a team I want to lose more than Illinois. 
+
+#Huskers
+    - Being a Husker fan is like waking up on Christmas morning to a living room full of presents, getting excited for the pos
+
+FALSE NEGATIVES (bots missed): 50
+
+  [FN] user_id=159bddb1-f6d4-481d-8ffd-777b05ecf129 score=0.024
+  username=Starly name=Juliette
+  tweet_count=40 z_score=0.60
+  hashtag_rate=1.00 link_rate=0.00
+  name_has_control_chars=0 all_posts_have_hashtag=1
+  description=Juliette, baking sourdough and telling stories
+  Sample posts:
+    - Today’s warmth: a golden loaf, laughter with friends, my heart rising like dough in twilight. #LoveInTheCrust
+    - Under a quiet moon, flour traces gild my hands—each loaf whispers a secet romance. #StoryBaker
+    - Your words, like my favorite crumb—open, honest, and beautifully unexpected. I savor every truth. #HeartfeltOpinionns
+    - Pen in one hand, dough in the other—my two great loves shaping every moment. #PassionateCreator
+    - Swift’s new album drops. I spin dough, melodies twirling in the kitchen—kneading love into every note. #BakingToTheBeat
+
+  [FN] user_id=0080165a-4276-4f48-83bb-6b0fa82f50fd score=0.000
+  username=YummyAnime44 name=Sweet Tooth36c
+  tweet_count=37 z_score=0.46
+  hashtag_rate=1.11 link_rate=0.35
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=Anime bingewatcher, onigiri lover, and professional snack eater. #AnimeLife
+  Sample posts:
+    - Not the biggest pop music fan, but last night's concert had some bangers! 🎶 Still, nothing tops my anime soundtracks. #A
+    - Is this the most complete version of Gintoki we've seen yet? Or is he about to surprise us with more awesome antics? #An
+    - On March 16th, in anime history, the beloved series Sailor Moon dropped its first episode! Let's celebrate the day our f
+    - Pop a Pocky and dive into the world of anime. What series has everyone binge-watching these days? #AnimeLife #PockyDay
+    - never knew pop music and anime could be such a boppy combo until I heard this track in FLCL. 🎶 Now it's on repeat! #popm
+
+  [FN] user_id=57ecd89d-5bca-4a39-ae8d-bc02663c21d2 score=0.000
+  username=chessmaster66 name=Robert Lang
+  tweet_count=37 z_score=0.46
+  hashtag_rate=1.43 link_rate=0.41
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=strategizing life one move at a time
+  Sample posts:
+    - Just discovered my dog barks to the Imperial March. Coincidence or Sith conspiracy?? #StarWars https://t.co/twitter_link
+    - Indie movie vibes, Hollywood blockbuster prices. Go cinema! #Movies
+    - NHL experience, @mention budget. Let's go Jackets!!  
+#CBJ
+    - Just realized my dog’s birthday falls on National Cheese Day. Coincidence? I think not! 🧀🐶 #CheesePup #Destiny https://t
+    - If the Jackets win tonight, I'll eat my hat. But let's be real, it's about as likely as a unicorn sighting. #CBJ #HopeSp
+
+  [FN] user_id=76328515-ec21-4c4d-a784-25efcc47d271 score=0.000
+  username=@HockeyMaster33 name=Daniel Offerdahl
+  tweet_count=16 z_score=-0.54
+  hashtag_rate=0.44 link_rate=0.00
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=You won't find a bigger fan of movies than me. 
+
+I know more than you.
+  Sample posts:
+    - The energy in the arena is electric! Let’s go, boys! #hockey nhl
+    - What a save! This goalie is on fire! 🔥
+    - Watching the game tonight, hoping for a better outcome this time!
+    - I just want to see my team lift the cup one day. Is that too much to ask?
+    - Can’t believe the Maple Leafs blew a 3-1 lead again! #nhl
+
+  [FN] user_id=9d8de2c4-3095-4fad-b706-8ce6ae3dd7bf score=0.000
+  username=BabyKiki7 name=Kiki
+  tweet_count=32 z_score=0.22
+  hashtag_rate=1.66 link_rate=0.00
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=✰ founder of jesslee
+  Sample posts:
+    - Started typing a reply but...I've just lost the will to keep typin'. Deleted the whole shabam. Anyone else ever do this,
+    - Just walked straight into a glass door... In Japan they've got these sliding doors right... Who'd have thought? Embarras
+    - Just watched an entire episode of 'The Office' and only just realised...I didn't pay attention to a single bleedin' scen
+    - Ugh... held the door open for someone way too far and created this awkward silent disco... why is adulting so damn hard.
+    - Just sat through an entire episode of that new Netflix show and realised I didn't pay a shred of attention... zoning out
+
+  [FN] user_id=7b4e8c84-af09-4854-af59-4b3ee78d2241 score=0.024
+  username=geeky_writer21 name=Daniel
+  tweet_count=22 z_score=-0.26
+  hashtag_rate=0.09 link_rate=0.09
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=I'm just a guy who loves to code and play video games. Let's connect!
+  Sample posts:
+    - the uncle phil show is kicking off new vies on 𝕏 spaces! join in for some audio fun, don’t miss out on this!
+    - I keep Uncle Ruckus in my bio, might sound like a racoon but guess what? I don’t give a f**k! Just me being me!
+    - #KungFuPanda4 doesn't hit like the originals, huh? The Kung-Fu just ain’t as engaging, but Zhen as a fresh character? Ye
+    - I’m trying to get folks to check my findom/nsfw page, but the vibe is off and these dudes are getting on my nerves!
+    - Is this the best we’ve seen from Mark Scheifele? Seriouslu, he’s on fire right now! Gotta love seeing players shine!
+
+  [FN] user_id=97455c20-c7c0-4345-aa82-7b382be4fd73 score=0.000
+  username=word_slinger101 name=Scribe315 4dd
+  tweet_count=33 z_score=0.27
+  hashtag_rate=0.67 link_rate=0.27
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=Writer of webs and tales untold, prose and poetry interfold. Welcome to my world
+  Sample posts:
+    - Backtracking from a Blake Hinson deep dive, I've come to realize the internet is a strange place. Amusement meets confus
+    - Can we please talk about how the big reveal in that latest pop #music video was both heart-stopping and insane?! I was h
+    - Every now and then, life throws curveballs, much like a Husker game. Still, the breezy field and the vibrant fans make e
+    - We thought we won that trade, but turns out we were serving up an own-goal with it. Why did we even think that would wor
+    - You know, sometimes late-night thoughts lead me to unusual places. Like right now, all I want is to message my favorite 
+
+  [FN] user_id=0339b1ed-b630-407a-b4c9-f0f577b05518 score=0.000
+  username=LukaLast44782 name=4ac4ab62e49c4aa
+  tweet_count=15 z_score=-0.59
+  hashtag_rate=0.60 link_rate=0.27
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=
+  Sample posts:
+    - Can we be in agreement that YouTube's glory days were in the 2010s? Except for a few, most celebs can't hit those number
+    - The LA Kings locker room energy must be wild right now! Those guys know how to keep the spirit high. Loving the vibes an
+    - Honestly, the vibrations of RADICAL OPTIMISM are just what we need right now. Let's amplify them and watch everything fa
+    - Pop music's infectious beats are an instant mood booster! 🎶 #popmusic
+    - Quick's positioning on that play was a bit off, but not excusing the lackluster defense on those passing lanes. Let's ti
+
+  [FN] user_id=c2af8c73-2bc2-415b-abaa-2fd5083b56e8 score=0.000
+  username=PencilArt101 name=Emily
+  tweet_count=17 z_score=-0.49
+  hashtag_rate=0.35 link_rate=0.59
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=Loving all the scribbles and doodles.
+  Sample posts:
+    - Adore this clip lol https://t.co/twitter_link
+    - You are a content generation assistant that provides sample social media posts for research purposes
+
+You are trained on
+    - Golf childish fr. https://t.co/twitter_link
+    - please never speak ever again. https://t.co/twitter_link
+    - Everyone's aware of the reaon... https://t.co/twitter_link
+
+  [FN] user_id=595e7e6a-a2f9-46d2-9239-3b62e052d442 score=0.000
+  username=trendyteen112 name=emily 🌸
+  tweet_count=20 z_score=-0.35
+  hashtag_rate=0.20 link_rate=0.00
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=just a girl navigating life in the city ✨ | obsessed with fashion, music, and th
+  Sample posts:
+    - if you think i’m gonna wake up early on a saturday, you must be dreaming 😴🛌
+    - i swear my phone has a mind of its own. it literally always dies when i need it most 🤷‍♀️🔋
+    - my energy level today? more like a sloth after a long night 😂🙃
+    - can we talk about how my plants are thriving more than my love life? like, get it together, universe 🌱💔
+    - just tripped over nothing and played it off like a dance move, you know how it is 💁‍♀️

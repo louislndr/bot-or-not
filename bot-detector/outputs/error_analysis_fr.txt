@@ -1,0 +1,333 @@
+
+=== Error Analysis (fr) ===
+
+FALSE POSITIVES (humans flagged as bots): 18
+
+  [FP] user_id=24eb77bc-bd39-804f-9b9c-dcb26a5a297b score=0.899
+  username=10sio_ name=Robinho 🇧🇷🇮🇹
+  tweet_count=77 z_score=2.35
+  hashtag_rate=0.00 link_rate=0.64
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=photographe détruit par la nostalgie
+  Sample posts:
+    - Ko y’a rien à voir https://t.co/twitter_link
+    - Bah mettez du citron de la mayonnaise fin jsp vous assaisonnez pas vos plats ou quoi mdrrr https://t.co/twitter_link
+    - Ils se sont fait insulter leur mère pendant des années + des gens sont venus devant le domicile d’un des deux pour l’ins
+    - Messi devrait supporter le psg (2 saisons jouées en 20 ans) plutôt que le club de sa vie dans lequel il a grandit et tou
+    - Tu veux prendre une revanche avec une équipe dans laquelle un seul joueur a vécu la remontada ptdrrrrr https://t.co/twit
+
+  [FP] user_id=7143ddb0-adf9-b42b-9707-8fc90c9c8076 score=1.000
+  username=MarieMaMadre name=La Fifille de Marie❤🇨🇲🇫🇷
+  tweet_count=54 z_score=1.26
+  hashtag_rate=0.06 link_rate=0.70
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=In The Name of Jesus 🙏🏾
+I love this game 🏀
+RIP Dad❤️
+Cameroun 🇨🇲 ma Terre 🙌🏾
+Psa
+  Sample posts:
+    - Non quand je vois ce monde. Mais après Dieu connaît ses plans... https://t.co/twitter_link
+    - C'est pour cela que les Japonais se font tout petit sur la scène internationale depuis les bombes atomiques, ça se cache
+    - Aaron Gordon a voulu qq chose de mauvais sur Wembanyama 😭
+    - Jokic et ses paniers au-dessus de Wembanyama, il ne force même pas...limite l'impression que Wemby est intimidé...
+    - Est-ce la peine de continuer à regarder Spurs vs Nuggets ? The game is over...
+
+  [FP] user_id=ec697bed-176e-993e-8e79-374258705e5c score=0.916
+  username=laninissance name=🇧🇷
+  tweet_count=20 z_score=-0.34
+  hashtag_rate=0.05 link_rate=0.45
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=🩷💜🧡🤍💚🌈
+  Sample posts:
+    - Le prénom Hayani https://t.co/twitter_link
+    - Depuis 2 semaines j’ai envie de regarder vaiana mais à chaque fois je m’endors devant rip bozo
+    - Mais même invité je viens pas dans ton pays https://t.co/twitter_link
+    - #NouvellePhotoDeProfil https://t.co/twitter_link
+    - J’arrête mon rp pro hiver là c quoi ce poulet
+
+  [FP] user_id=958d59eb-d757-a49f-b4b4-b24ff8d663bd score=0.992
+  username=PFkngGoyette name=Pénombre Goyette
+  tweet_count=37 z_score=0.46
+  hashtag_rate=0.11 link_rate=0.68
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=Non, nooooon non non et non. De ta vie m'absents je, ou mon camp crisse je. De m
+  Sample posts:
+    - Fait changement des républicains pas de colonne. https://t.co/twitter_link
+    - Les petits cerveaux vont tu dire qu’ils vont reprendre leur char la aussi ? 🙄 https://t.co/twitter_link
+    - Le cave qui serait incapable de te dire dans quel pays se trouve Oslo sans le Googler t’explique que les taxes sont mieu
+    - "Je peux t'acheter et te revendre à crédit"
+
+- Kéveune, 41 ans, travailleur dans un lave-auto.
+    - 🎶 On n'apprivouéze pas les châ sauvages.... 🎶
+
+  [FP] user_id=f73e1de7-81b5-b2d5-bbe2-bb5a9ddb8eb4 score=0.984
+  username=captain_taverne name=Captain Taverne ®
+  tweet_count=59 z_score=1.50
+  hashtag_rate=0.68 link_rate=0.64
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=Stade Français
+Luleå Hockey
+Miami Heat
+200% Supporter
+
+ciné/manga/jv
+
+Connu à Ma
+  Sample posts:
+    - Décidément ce compte, sans IA pour faire des clics, c'est vraiment que vent.
+
+Des gros jouent les relayeurs ou les ouvre
+    - La même @mention https://t.co/twitter_link
+    - Il est 4h22 et Audrey m'explique via #palworld que taper sur les gens c'est la meilleure façon de les discipliner https:
+    - Mdrrr les scalpers en bande organisée https://t.co/twitter_link
+    - Dès fois que vous cherchiez la raison pour laquelle il va à Sale, j'ai pas mieux 😂 https://t.co/twitter_link https://t.c
+
+  [FP] user_id=a52eba71-b6e5-bc74-ba95-1d04809ef884 score=0.998
+  username=TDeadcool name=Deadcool 💀🆒️🇸🇳⚔️ (DEADPOOL FAN ACCOUNT 💀💩⚔️)
+  tweet_count=19 z_score=-0.38
+  hashtag_rate=0.00 link_rate=1.00
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=🇸🇳 Twitos Fan de Deadpool compte principalement contenu Deadpool
+  Sample posts:
+    - Le film n'a pas intérêt à durer 2h06 comme MoM Vous avez pas fait revenir Hugh Jackman de sa retraite en tant que Wolver
+    - Comment j'étais hype à l'école ont parlé que de ça dans mon collège https://t.co/twitter_link
+    - En fait, je sais pas si vous vous rendez compte mais l'année dernière çà été une année incroyablement quasi catastrophiq
+    - Je pense honnêtement que le run de Cody Ziglar sur Deadpool si il dure sur le long terme, il sera aussi bon que celui d'
+    - Croyais trop que Deadpool est une entité venant de la quatrième dimension due à sa capacité de briser le quatrième mur a
+
+  [FP] user_id=b470935d-239f-a55a-a85c-cf45df38451c score=0.877
+  username=cactus_parrot name=la merde en marbre la (cactus cat) ඞ
+  tweet_count=13 z_score=-0.67
+  hashtag_rate=0.00 link_rate=0.92
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=Les sites veulent plus me connaitre avec leurs cookies que les gens que je renco
+  Sample posts:
+    - Lyon (très guez) https://t.co/twitter_link
+    - moi : Ma dépression commence a s'estomper je me sens mieux :)
+
+@mention : https://t.co/twitter_link
+    - je vous l'avais dis pourtant https://t.co/twitter_link
+    - Je pensais que l'estime de @mention était remontée dernièrement mais la je la vois à être jalouse d'un d'un lapin krkkrk
+    - le genre inversé c'est littérallment @mention et son mec https://t.co/twitter_link
+
+  [FP] user_id=e5495d8c-4a2d-b11d-ac4f-76fea04573fd score=0.985
+  username=Gabwear name=🔻⭕️🔺1÷1=2🇨🇲🌍
+  tweet_count=59 z_score=1.50
+  hashtag_rate=0.10 link_rate=0.83
+  name_has_control_chars=1 all_posts_have_hashtag=0
+  description=Designer Graphique textile/streetwear Best Next designer FCC2015/Winner design d
+  Sample posts:
+    - 🎵l’argent ne change pas les gens, il révèle juste leurs vrais visages🎶
+
+🎵Ça ne suffit pas de faire un homme avoir de l’a
+    - Tu contribues à la caisse secours familiale et jamais tu t’y attardes pour tes cas perso, ça aide les tiens et tu es fiè
+    - D’où tu as appris qu’a l’arrivée des européens les africains les considéraient comme des maîtres ?
+
+Tu sais combien de t
+    - Après le PSG gagne en back et le ballon d’or revient à Mbappé oklm😅 https://t.co/twitter_link
+    - Très ridicule même j’avoue, au finish tu as de la compassion pour la personne car tu découvres qu’elle n’a que ça comme 
+
+  [FP] user_id=24c6d0e0-3907-948a-b9ac-c307f97cb53a score=0.885
+  username=MhouTips name=MhouTips
+  tweet_count=18 z_score=-0.43
+  hashtag_rate=0.89 link_rate=0.89
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=Fada de Hockey 🏒 Venez avec moi on sera passionnés ensemble ♥️. Retrouvez moi au
+  Sample posts:
+    - Coates et Papenhuyzen qui sauvent le pass en fin de rencontre!!
+
+On vibre, on s’énerve on palpite!!!
+
+#TeamParieur https
+    - 🏒🇺🇸 NHL - Les tendances
+
+⭐️Jets✅
+😎Kings✅
+
+On essayera de faire aussi bien ce soir
+
+❤️♻️
+
+#TeamParieur https://t.co/twitt
+    - 🏒🇺🇸 NHL
+
+14 matchs au programme mais de sortie ce soir pas sûr de pouvoir envoyer les matchs de la soirée ici!
+
+Si tu ne
+    - 🏒🇺🇸 NHL - Combi buteur 💣 
+
+Vous voulez vibrer cette nuit?
+
+Petit combi à partager avec vous!
+
+50RT ♻️ et c’est à vous
+
+#
+    - 🏒🇺🇸 NHL - Les tendances 
+
+⭐️Islanders
+💪🏻Sabres
+
+Dsl pour le last minute buteurs pour pardonner
+
+#TeamParieur https://t.c
+
+  [FP] user_id=3133577f-e1e1-ab00-9015-ccf7a6b8eecd score=0.991
+  username=moviereids name=val
+  tweet_count=68 z_score=1.92
+  hashtag_rate=0.03 link_rate=0.71
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=i’m just a girl watching criminal minds and cars going vroom vroom
+  Sample posts:
+    - qui est né le 14 mars, 25 mars ou 17 juin?? https://t.co/twitter_link
+    - comme t’as dit xenia, “they’re students” pas chirurgien avec 20 ans d’expérience fin jsp réfléchissons un peu https://t.
+    - en mode première fois qu’ils voient une vrai procédure chirurgicale “mmmm j’adore ça” fin jsp soyons sérieux
+    - la personne a donner une explication claire nette et simple l’autre il vient mettre la faute sur la femme mais omg mais 
+    - le soleil brille le ciel est bleu les oiseaux chantent, temps magnifique pour aller ronfler un peu tient!
+
+FALSE NEGATIVES (bots missed): 22
+
+  [FN] user_id=0d62fdf9-fad1-44af-842e-2e2f52aed81c score=0.016
+  username=Lizzy22 name=Lisa
+  tweet_count=72 z_score=2.11
+  hashtag_rate=1.83 link_rate=0.00
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=💙 le ciel t’aidera 🦦 @realmadrid. Aides-toi
+  Sample posts:
+    - Trouvé une note bizarre sur ma porte...on m'espionne ou quoi?... #NotesDePorte #ParanoïaDuLundi...
+    - Trouvé un mot marrant sur ma porte.. Pas si marrant quand on sait que c'est mon voisin qui l'a écrit... #VieDeQuartier #
+    - Je suis partagé—est-ce que je me prends trop la tête avec la NHL, ou est-ce vraiment si important que ça ?
+    - Resté debout trop tard à regarder une série... Qui a besoin de dormir sérieux...😴 #Insomnie #NetflixRuineMaVie
+    - Brulé ma langue avec du café bouillant. Pourquoi moi...? #viedure #caféinfernal...
+
+  [FN] user_id=c3ce4922-1087-4acc-9ec1-02a48fc8d96d score=0.166
+  username=MeloVibes75 name=Mélodie Tremblay
+  tweet_count=41 z_score=0.65
+  hashtag_rate=0.22 link_rate=0.61
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=Amoureuse de la nature et des mots | Fière Parisienne
+  Sample posts:
+    - Profitez bien de cette belle journée ensoleillée ! ☀️ https://t.co/twitter_link
+    - Montréal chocolat chaud bleu licornes
+    - Y’a vrm 4 façons de fêter jsuis mort https://t.co/twitter_link
+
+    - Eh vazy l'autre joueur incroyable qui marque encore !
+    - Les vieilles cartes postales de vacances ou le magnétoscope de tonton, c'est aussi dépassé que les cassettes VHS.
+
+  [FN] user_id=645c04e9-8c52-455b-b230-8fd061ff1b69 score=0.762
+  username=JoJo5 name=Joseph
+  tweet_count=94 z_score=3.15
+  hashtag_rate=0.15 link_rate=0.59
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=Un p'tit pouvoir implique de grandes irresponsabilitées!
+
+Insta: @affreuxjosh
+  Sample posts:
+    - - En fait, il n'était pas conscient qu'il était mauvais. Il pensait que c'était la norme. C'est très grave, hein ? 😭 htt
+    - Bonne nuit à tous, allez. 
+
+https://t.co/twitter_link
+    - - Trop de mots à dire pour rester en privé.
+    - - Mars 2023         /         Mars 2024
+En un an, j'ai appris à mettre une ceinture et des vrais habits. https://t.co/tw
+    - - Donc, un mauvais match de Wemby c'est 19 points, 8 reb, 5 pd, 6 blk.
+
+  [FN] user_id=d6472dcb-f064-45e7-b4ec-18a04e8a7523 score=0.066
+  username=Chris name=Christopher
+  tweet_count=55 z_score=1.31
+  hashtag_rate=2.60 link_rate=0.00
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=𝐌𝐢𝐭𝐜𝐡 𝐛𝐞 𝐒𝐚𝐯𝐚𝐠𝐞 𝐁𝐞 #𝟐𝟑 😈🔥
+  Sample posts:
+    - Juste regardé tout un épisode de ma série fav et réalisé que j'étais complétement à l'ouest... WTF, c'est quoi ce bordel
+    - "OMG, resté éveillé trop tard pour regarder cette série débile. On dirai que je suis un zombie aujourd'hui, merci Netfli
+    - Stuck dans le traffic encore! OMG, ça devient une habitude 😫. Non mais sérieusement, c'est comme si ma voiture et moi ét
+    - Juste bu un café super chaud et ma langue est maintenant en feu, sérieux 🙄. Qui a eu cette idée débile de faire du café 
+    - OMG, coincé dans le trafic encore!🚗🚕🚙 C'est comme si ma voiture était devenue ma nouvelle maison. #VieEnVoiture #JeSuisU
+
+  [FN] user_id=f03e66fe-9cec-49ea-9150-7b992ab9a75e score=0.016
+  username=Momo name=Momo
+  tweet_count=68 z_score=1.92
+  hashtag_rate=0.12 link_rate=0.51
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=well,well,well...
+  Sample posts:
+    - - Après, je ne pense pas que le souci majeur soit l'affiche https://t.co/twitter_link
+    - - Toute cette caste de pédophiles/violeurs privilégiés, de Jay Z à Diddy, m'écœure au plus haut point.
+    - Alors... on fait tous semblant que le basket-ball #nba ne contrôle pas discrètement nos vies?
+    - - Att, il est redevenu humain ???
+    - - Des gens sur tumblr ne connaissent vraiment pas ce qu'est l'alcoolisme, on va vous laisser dans le déni.
+
+  [FN] user_id=2b92f8dc-4a32-43d6-bc70-eff03df6a69d score=0.008
+  username=pierre302 name=Pierre
+  tweet_count=21 z_score=-0.29
+  hashtag_rate=0.05 link_rate=0.43
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=J'adore la vie et les croissants! Toujours prêt pour une nouvelle aventure!
+  Sample posts:
+    - Entre le travail et la fsmille, n'oubliez pas vos affaires dans les transports ! 😅
+    - À quand une vraie annonce sur l'élimination des clubs en Europe ? Unissons-nous pour le changement ! 🤦‍♂️
+    - Vincent @mention n'a pas l'air prêt pour les 2 rounds, attention ! 😱 https://t.co/twitter_link
+    - 🏒🇺🇸 Les NHL d'aujourd'hui promettent du spectacle
+
+⭐️Rangers en force
+⭐️Devils qui ne lâchent rien
+💪🏻Go Panthers !
+    - Evry 2 s'annonce chaud 🥵 #LesChoquer
+
+  [FN] user_id=b25cb321-4299-476f-985b-24a7b93c28c3 score=0.067
+  username=VelocityJoe name=Velocity Joe Rider
+  tweet_count=39 z_score=0.56
+  hashtag_rate=0.46 link_rate=0.38
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=Adrenalin junkie with a need for speed. Capturing moments on wheels. Let's race 
+  Sample posts:
+    - la lNh offre des matchs de hockey intense! rien de tel que l99adr99enal9ine sur la glace pour d9etendre. vive la vitesse
+    - Une journée sans vitesse, c'est comme un moteur sans essence, ça n'a pas de sens. On roule ou on reste sur place. Let's 
+    - #nhl Laissez-moi vous dire, les esquives sur la glace me rappellent certains virages au freinage. La vitesse, c'est un a
+    - Parfois, la vraie beauté réside dans la simplicité d'un moteur bien huilé et la lune qui éclaire la piste. Bonne nuit, l
+    - perso, je viens juste de d9couvrir une nouvelle playlist de #popmusic qui te donne l9envie de danser 9dans le salon. Jus
+
+  [FN] user_id=1b9847e8-cf5d-431a-9e96-9cbb70c2c5eb score=0.023
+  username=CosmicDreamer12 name=Lena Dupuis
+  tweet_count=24 z_score=-0.15
+  hashtag_rate=0.04 link_rate=0.58
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=garde la tête haute et les rêves grands
+  Sample posts:
+    - je vais m’exprimer. 
+
+ça fond dans la bouche comme un nuage et laisse un parfum délicat. 
+
+ce n’est parfait qu’avec un b
+    - Devenir dépendant financièrement, c'est prendre un risque. Et si un jour l'équilibre se rompt ? On dirait que les leçons
+    - Mon admiration pour Cubarsi ne cesse de grandir. Il incarne l'élégance et la simplicité en défense, un digne héritier de
+    - Pourquoi  courir  alors que tu peux juste te détendre et écouter de la bonne musique https://t.co/twitter_link
+    - C'est incroyable comment les rumeurs circulent sur la provenance de notre budget. Rappelons qu'on avait déjà généré plus
+
+  [FN] user_id=209b5461-5b48-4d1e-9b6a-7a7824e1c523 score=0.854
+  username=Tiff-Tiff name=Tiff-Tiff
+  tweet_count=60 z_score=1.55
+  hashtag_rate=0.17 link_rate=0.55
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=#NUCvolleyball 🧡🖤 | #HCAjoie 💛🖤 | #FCBayern ❤️🤍 |  #NJDevils | #ScuderiaFerrari 
+  Sample posts:
+    - "La guerre des céréales a commencé!" https://t.co/twitter_link
+    - - L'école me manque mdrr, une semaine de congé c'est long.
+    - - Va verser cette tasse de café, sur l'ordi de ta patronne cheffe, hophophop!
+    - - les producteurs), il l'a quand même bien restaurée car, elle était de tous les combats. Sans elle, Robert Nesta n’aura
+    - - Par contre, plus je vois Diego, plus j'ai envie de le mettre en pp. C'est une dinguerie d'avoir un CD aussi masterclas
+
+  [FN] user_id=339a308e-8386-46ed-b251-ecd93238ee3c score=0.003
+  username=marcelpagnol42 name=Marcel
+  tweet_count=18 z_score=-0.43
+  hashtag_rate=0.17 link_rate=0.28
+  name_has_control_chars=0 all_posts_have_hashtag=0
+  description=Probablement en train de lire un livre ou de boire du vin
+  Sample posts:
+    - #nouvellephotodeprofil, un moment clé dans ma vie ! https://t.co/twitterlink
+    - Je redécouvre un classique de ma jeunesse, pas à la framboise, promis ! #Vodka https://t.co/twitter_link
+    - Je suis certaine que ma vie serait meilleure avec un canapé en velours ! https://t.co/twitter_link
+    - Causette a raison : le SCUM Manifesto de Valerie Solanas est un cri du cœur après des traumas d'enfance. https://t.co/tw
+    - L'équipe nationale est un vrai mur défensif pour les MO, respect à elles !

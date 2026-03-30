@@ -1,0 +1,18 @@
+Score distribution (en):
+
+Bot scores (OOF):
+  mean=0.795 median=0.889 min=0.020 max=1.000
+Human scores (OOF):
+  mean=0.054 median=0.000 min=0.000 max=0.816
+
+Histogram (bins 0.0-1.0 in 0.1 steps):
+  [0.0-0.1]  bots=   1 #  humans= 176 ............................................................
+  [0.1-0.2]  bots=   0   humans=  10 ..........
+  [0.2-0.3]  bots=   1 #  humans=  10 ..........
+  [0.3-0.4]  bots=   2 ##  humans=   7 .......
+  [0.4-0.5]  bots=   1 #  humans=   2 ..
+  [0.5-0.6]  bots=   3 ###  humans=   1 .
+  [0.6-0.7]  bots=   8 ########  humans=   2 ..
+  [0.7-0.8]  bots=  11 ###########  humans=   0 
+  [0.8-0.9]  bots=  17 #################  humans=   1 .
+  [0.9-1.0]  bots=  17 #################  humans=   0 
