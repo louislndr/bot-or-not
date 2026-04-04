@@ -56,11 +56,16 @@ def main():
     os.makedirs("outputs", exist_ok=True)
     scores_path = os.path.join("outputs", f"scores_{ts}.csv")
     with open(scores_path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(
-            f, fieldnames=["user_id", "bot_score", "flagged", "username", "z_score", "hashtag_rate", "link_rate"]
-        )
+        writer = csv.DictWriter(f, fieldnames=[
+            "user_id", "bot_score", "flagged", "vetoed", "whitelisted",
+            "hard_rule_fired", "corroborating_rules", "username",
+            "z_score", "hashtag_rate", "link_rate",
+        ])
         writer.writeheader()
-        writer.writerows(score_records)
+        for rec in score_records:
+            row = dict(rec)
+            row["corroborating_rules"] = "|".join(rec.get("corroborating_rules", []))
+            writer.writerow(row)
     logger.info(f"Score details written to: {scores_path}")
 
     # Print summary to stdout
@@ -71,15 +76,30 @@ def main():
     print(f"Total users:    {n_users}")
     print(f"Flagged bots:   {len(flagged_ids)} ({100*len(flagged_ids)/max(n_users,1):.1f}%)")
     print(f"Elapsed:        {elapsed:.1f}s")
+    n_vetoed = sum(1 for r in score_records if r.get("vetoed"))
+    n_whitelisted = sum(1 for r in score_records if r.get("whitelisted"))
+    n_hard = sum(1 for r in score_records if r.get("hard_rule_fired"))
+    print(f"Hard-flagged (rules): {n_hard}")
+    print(f"Whitelisted (human):  {n_whitelisted}")
+    print(f"Vetoed (no evidence): {n_vetoed}")
     print(f"\nTop 10 highest-scored users:")
-    print(f"{'rank':>4}  {'score':>6}  {'flagged':>7}  {'username':30}  {'z_score':>8}  {'hashtag_rate':>12}")
-    print("-" * 80)
+    print(f"{'rank':>4}  {'score':>6}  {'status':>10}  {'username':25}  {'rules'}")
+    print("-" * 95)
     for i, rec in enumerate(score_records[:10], 1):
-        flag_str = "BOT" if rec["flagged"] else "   "
+        if rec.get("hard_rule_fired"):
+            status = "HARD-BOT"
+        elif rec["flagged"]:
+            status = "BOT"
+        elif rec.get("whitelisted"):
+            status = "HUMAN"
+        elif rec.get("vetoed"):
+            status = "VETOED"
+        else:
+            status = ""
+        rules_str = "|".join(rec.get("corroborating_rules", [])) or "-"
         print(
-            f"{i:>4}  {rec['bot_score']:.4f}  {flag_str:>7}  "
-            f"{str(rec['username'])[:30]:30}  {rec['z_score']:>8.2f}  "
-            f"{rec['hashtag_rate']:>12.2f}"
+            f"{i:>4}  {rec['bot_score']:.4f}  {status:>10}  "
+            f"{str(rec['username'])[:25]:25}  {rules_str}"
         )
     print(f"\nOutput file: {args.output}")
     print(f"Scores file: {scores_path}")
