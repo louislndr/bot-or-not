@@ -1,11 +1,13 @@
 Feature group ablation (en):
-  Baseline (all features):  32.0
+  Baseline (all features):  256.0
 
-  Remove text           : score=26.0  drop=+6.0
-  Remove structural     : score=26.0  drop=+6.0
-  Remove temporal       : score=30.0  drop=+2.0
-  Remove semantic       : score=30.0  drop=+2.0
-  Remove volume         : score=32.0  drop=+0.0
-  Remove links          : score=32.0  drop=+0.0
-  Remove profile        : score=34.0  drop=-2.0
-  Remove hashtag        : score=36.0  drop=-4.0
+  Remove hashtag        : score=172.0  drop=+84.0
+  Remove text           : score=188.0  drop=+68.0
+  Remove profile        : score=210.0  drop=+46.0
+  Remove cluster        : score=216.0  drop=+40.0
+  Remove temporal       : score=218.0  drop=+38.0
+  Remove links          : score=224.0  drop=+32.0
+  Remove semantic       : score=238.0  drop=+18.0
+  Remove structural     : score=240.0  drop=+16.0
+  Remove volume         : score=248.0  drop=+8.0
+  Remove network        : score=256.0  drop=+0.0

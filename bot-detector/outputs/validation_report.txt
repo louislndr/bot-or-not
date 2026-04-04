@@ -3,25 +3,25 @@ VALIDATION REPORT — Bot Detection System
 ======================================================================
 
 Language: EN
-  Dataset: 275 users, 66 bots (24.0%)
+  Dataset: 1220 users, 224 bots (18.4%)
   Best model: gradient_boosting
   Decision threshold: 0.65
-  Competition score (CV): 70.0
-  Precision: 0.948
-  Recall: 0.833
-  F1: 0.887
-  TP=55  FP=3  FN=11  TN=206
+  Competition score (CV): 358.0
+  Precision: 0.977
+  Recall: 0.933
+  F1: 0.954
+  TP=209  FP=5  FN=15  TN=991
   Top features by importance:
-    hashtag_count_total                     : 0.3998
-    hashtag_diversity                       : 0.2076
-    posting_hour_entropy                    : 0.1407
-    question_rate                           : 0.0468
-    hashtag_rate                            : 0.0306
-    unique_hours                            : 0.0245
-    sentence_length_cv                      : 0.0221
-    posts_in_first_hour                     : 0.0126
-    link_rate                               : 0.0103
-    description_length                      : 0.0092
+    sentence_length_cv                      : 0.2188
+    posting_hour_entropy                    : 0.1440
+    inter_post_gap_cv                       : 0.0825
+    question_rate                           : 0.0515
+    cluster_size                            : 0.0475
+    unique_hours                            : 0.0421
+    stdev_post_length                       : 0.0410
+    max_hashtag_freq                        : 0.0279
+    z_score                                 : 0.0275
+    posts_with_hashtag_frac                 : 0.0262
 
   Failure modes:
     1. Bots with low hashtag rates but no other strong signals
@@ -31,25 +31,25 @@ Language: EN
     5. Bots posting only once or twice (insufficient temporal/structural signal)
 
 Language: FR
-  Dataset: 171 users, 27 bots (15.8%)
-  Best model: logistic_regression
-  Decision threshold: 0.87
-  Competition score (CV): 8.0
-  Precision: 0.870
-  Recall: 0.741
-  F1: 0.800
-  TP=20  FP=3  FN=7  TN=141
+  Dataset: 797 users, 110 bots (13.8%)
+  Best model: gradient_boosting
+  Decision threshold: 0.65
+  Competition score (CV): 158.0
+  Precision: 0.971
+  Recall: 0.900
+  F1: 0.934
+  TP=99  FP=3  FN=11  TN=684
   Top features by importance:
-    exclamation_rate                        : 1.6523
-    quote_tweet_ratio                       : 1.2222
-    abs_z_score                             : 1.0048
-    posts_with_hashtag_frac                 : 0.9644
-    unique_hours                            : 0.8312
-    moving_avg_lex_diversity                : 0.7835
-    template_score                          : 0.6499
-    hashtag_count_total                     : 0.6309
-    exact_duplicate_ratio                   : 0.6011
-    hashtag_diversity                       : 0.5927
+    posting_hour_entropy                    : 0.2466
+    exclamation_rate                        : 0.0929
+    hashtag_rate                            : 0.0916
+    caps_ratio                              : 0.0626
+    max_hashtag_freq                        : 0.0542
+    hashtag_count_consistency               : 0.0522
+    hashtag_trailing_rate                   : 0.0430
+    sentence_length_cv                      : 0.0422
+    posts_with_hashtag_frac                 : 0.0390
+    sleep_hour_frac                         : 0.0312
 
   Failure modes:
     1. Bots with low hashtag rates but no other strong signals
