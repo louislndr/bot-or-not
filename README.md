@@ -22,7 +22,7 @@ dataset.posts&users.json
   (src/detector.py)         with ML floor guard on hard rules
         │
         ▼
-  [team_name].detections.[lang].txt   (one user_id per line)
+  flagr.detections.[en|fr].txt   (one user_id per line)
 ```
 
 ## Decision Pipeline
@@ -127,7 +127,7 @@ Pre-trained artifacts are committed in `artifacts/` — skip this for inference.
 cd bot-detector
 python run_detector.py \
   --input  /path/to/dataset.posts_users.json \
-  --output teamname.detections.en.txt \
+  --output flagr.detections.en.txt \
   --artifacts artifacts/
 ```
 

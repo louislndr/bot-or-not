@@ -4,7 +4,7 @@ Final inference script. One command, outputs submission file.
 
 Usage:
     python run_detector.py --input dataset_posts_users_XX.json \
-                           --output myteam.detections.en.txt \
+                           --output flagr.detections.en.txt \
                            --artifacts artifacts/
 
 Completes in under 60 seconds for ~300-user datasets.

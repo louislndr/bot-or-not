@@ -253,6 +253,7 @@ class App(ctk.CTk):
         self.configure(fg_color=BG)
         self.option_add("*Font", TF(12))
         self._flagged_ids    = []
+        self._lang           = "en"
         self._bot_records    = []
         self._hum_records    = []
         self._all_records    = []
@@ -689,6 +690,8 @@ class App(ctk.CTk):
     def _run(self, path):
         try:
             dataset = load_dataset(path)
+            raw_lang = dataset.get("lang", "en").lower().strip()
+            self._lang = "fr" if raw_lang in ("fr", "french", "français", "francais") else "en"
             _, _, records = score_dataset(dataset, ARTIFACTS_DIR)
             bots   = sorted([r for r in records if     r["flagged"]], key=lambda r: -r["bot_score"])
             humans = sorted([r for r in records if not r["flagged"]], key=lambda r:  r["bot_score"])
@@ -778,7 +781,8 @@ class App(ctk.CTk):
     # ── Export ────────────────────────────────────────────────────────────
     def _download(self):
         path = filedialog.asksaveasfilename(defaultextension=".txt",
-            filetypes=[("Text file", "*.txt")], initialfile="detections.txt")
+            filetypes=[("Text file", "*.txt")],
+            initialfile=f"flagr.detections.{self._lang}.txt")
         if not path: return
         with open(path, "w") as f:
             for uid in self._flagged_ids: f.write(f"{uid}\n")
