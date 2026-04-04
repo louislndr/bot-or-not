@@ -1,7 +1,6 @@
 <div align="center">
   <img src="logo.svg" width="120" height="120" alt="FlagR logo"/>
   <h1>FlagR</h1>
-  <p>Bot detection for the <a href="https://forms.gle/fpe9cFkgn1e6BYEG8">Bot or Not Competition</a></p>
 </div>
 
 ---

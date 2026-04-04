@@ -25,7 +25,16 @@
       "Bash(git add:*)",
       "Bash(GIT_SEQUENCE_EDITOR=\"bash /tmp/rebase_script.sh\" git rebase -i --root 2>&1)",
       "Bash(git stash:*)",
-      "Bash(GIT_SEQUENCE_EDITOR=\"bash /tmp/rebase_script.sh\" git rebase -i --root)"
+      "Bash(GIT_SEQUENCE_EDITOR=\"bash /tmp/rebase_script.sh\" git rebase -i --root)",
+      "Bash(rm -f /Users/louislandreau/.claude/projects/-Users-louislandreau-bot-or-not/memory/*.md)",
+      "Bash(rm -f /Users/louislandreau/.claude/projects/-Users-louislandreau-bot-or-not/memory/MEMORY.md)",
+      "Bash(python3 app.py)",
+      "Bash(open:*)",
+      "Bash(python3 -c \"import cairosvg; print\\(''cairosvg ok''\\)\")",
+      "Bash(python3 -c \"from PIL import Image; print\\(''PIL ok''\\)\")",
+      "Bash(python3 -c \":*)",
+      "Read(//tmp/**)",
+      "Bash(kill 4827)"
     ]
   },
   "hooks": {
@@ -35,7 +44,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd /Users/louislandreau/bot-or-not && git add -A && git diff --cached --quiet || git commit -m \"Auto-commit: $(git diff --cached --name-only | tr '\\n' ' ' | sed 's/ $//')\"",
+            "command": "cd /Users/louislandreau/bot-or-not && git add -A && git diff --cached --quiet || (git commit -m \"Auto-commit: $(git diff --cached --name-only | tr '\\n' ' ' | sed 's/ $//') \" && git push)",
             "statusMessage": "Auto-committing changes..."
           }
         ]
