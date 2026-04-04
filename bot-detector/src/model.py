@@ -14,6 +14,7 @@ from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
+from xgboost import XGBClassifier
 
 from src.utils import (
     competition_score,
@@ -39,7 +40,7 @@ FEATURE_GROUPS = {
     "hashtag": [
         "hashtag_rate", "posts_with_hashtag_frac", "all_posts_have_hashtag",
         "hashtag_diversity", "max_hashtag_freq", "hashtag_count_total",
-        "hashtag_sequence_repeat",
+        "hashtag_sequence_repeat", "hashtag_trailing_rate", "hashtag_count_consistency",
     ],
     "text": [
         "avg_post_length", "stdev_post_length", "sentence_length_cv",
@@ -55,13 +56,24 @@ FEATURE_GROUPS = {
         "burst_score", "inter_post_gap_mean", "inter_post_gap_stdev",
         "inter_post_gap_min", "inter_post_gap_cv", "fixed_gap_score",
         "posts_in_first_hour", "time_span_minutes",
+        "temporal_coordination_score",
     ],
     "structural": [
         "near_duplicate_ratio", "template_score",
         "topic_hashtag_rate", "topic_focus_score",
         "cross_account_dup_score", "cross_account_near_dup_score",
     ],
-    "semantic": ["quote_tweet_ratio", "generic_phrase_count"],
+    "cluster": [
+        "cluster_size",
+        "cluster_bot_density",
+    ],
+    "network": [
+        "mention_unique_count",
+        "mention_diversity",
+        "mention_top_account_rate",
+        "shared_mention_targets_score",
+    ],
+    "semantic": ["quote_tweet_ratio", "generic_phrase_rate"],
 }
 
 ALL_FEATURE_NAMES = [f for group in FEATURE_GROUPS.values() for f in group]
@@ -70,8 +82,17 @@ ALL_FEATURE_NAMES = [f for group in FEATURE_GROUPS.values() for f in group]
 CONSERVATIVE_THRESHOLD_FLOOR = 0.65
 
 
+CLIP_STD = 3.0  # clip scaled features beyond ±3 standard deviations
+
+
+def clip_outliers(X: np.ndarray) -> np.ndarray:
+    """Clip feature values to ±CLIP_STD after StandardScaler (mean=0, std=1 in scaled space)."""
+    return np.clip(X, -CLIP_STD, CLIP_STD)
+
+
 def _build_models() -> Dict[str, Any]:
     """Return model candidates."""
+    scale_pos = 4  # approximate human:bot ratio weight
     models = {
         "logistic_regression": LogisticRegression(
             C=1.0, max_iter=1000, solver="lbfgs", class_weight="balanced", random_state=42
@@ -83,6 +104,13 @@ def _build_models() -> Dict[str, Any]:
         "gradient_boosting": GradientBoostingClassifier(
             n_estimators=100, max_depth=3, learning_rate=0.1,
             subsample=0.8, random_state=42
+        ),
+        "xgboost": XGBClassifier(
+            n_estimators=100, max_depth=4, learning_rate=0.1,
+            subsample=0.8, colsample_bytree=0.8,
+            scale_pos_weight=scale_pos,
+            use_label_encoder=False, eval_metric="logloss",
+            random_state=42, n_jobs=-1,
         ),
     }
     # Wrap gradient boosting in calibrated wrapper for probability output
@@ -102,7 +130,7 @@ def _rule_based_predict(df: pd.DataFrame, hashtag_threshold: float = 0.6) -> np.
     secondary = (
         (df["name_has_control_chars"] == 1)
         | (df["all_posts_have_hashtag"] == 1)
-        | (df["generic_phrase_count"] >= 2)
+        | (df["generic_phrase_rate"] >= 0.01)
         | (df["link_rate"] < 0.15)
     )
     return (primary & secondary).astype(int).values
@@ -143,8 +171,8 @@ def run_cross_validation(
             y_train, y_val = y[train_idx], y[val_idx]
 
             scaler = StandardScaler()
-            X_train_s = scaler.fit_transform(X_train)
-            X_val_s = scaler.transform(X_val)
+            X_train_s = clip_outliers(scaler.fit_transform(X_train))
+            X_val_s = clip_outliers(scaler.transform(X_val))
 
             import copy
             model = copy.deepcopy(model_proto)
@@ -241,7 +269,7 @@ def run_cross_validation(
     # If all models score negatively at the conservative floor, fall back to the
     # optimal threshold for the best-scoring model (negative score < 0 expected score).
     simplicity_order = [
-        "logistic_regression", "random_forest", "gradient_boosting", "rule_based"
+        "logistic_regression", "random_forest", "gradient_boosting", "xgboost", "rule_based"
     ]
     model_conservative_scores = {
         k: results[k]["oof_score_at_conservative_t"] for k in simplicity_order if k in results
@@ -339,8 +367,8 @@ def _oof_probs(X, y, model_name, skf):
         X_train, X_val = X[train_idx], X[val_idx]
         y_train, y_val = y[train_idx], y[val_idx]
         scaler = StandardScaler()
-        X_train_s = scaler.fit_transform(X_train)
-        X_val_s = scaler.transform(X_val)
+        X_train_s = clip_outliers(scaler.fit_transform(X_train))
+        X_val_s = clip_outliers(scaler.transform(X_val))
         model = copy.deepcopy(model_proto)
         model.fit(X_train_s, y_train)
         if hasattr(model, "predict_proba"):
@@ -354,22 +382,76 @@ def _oof_probs(X, y, model_name, skf):
     return oof_true, oof_prob
 
 
+_PARAM_GRIDS = {
+    "logistic_regression": {
+        "C": [0.01, 0.1, 1.0, 10.0, 100.0],
+        "solver": ["lbfgs"],
+        "max_iter": [1000],
+        "class_weight": ["balanced"],
+    },
+    "random_forest": {
+        "n_estimators": [100, 200, 300],
+        "max_depth": [4, 6, 8, None],
+        "min_samples_leaf": [1, 2, 3],
+        "class_weight": ["balanced"],
+    },
+    "gradient_boosting": {
+        "estimator__n_estimators": [50, 100, 200],
+        "estimator__max_depth": [2, 3, 4],
+        "estimator__learning_rate": [0.05, 0.1, 0.2],
+    },
+    "xgboost": {
+        "n_estimators": [100, 200, 300],
+        "max_depth": [3, 4, 6],
+        "learning_rate": [0.05, 0.1, 0.2],
+        "subsample": [0.8, 1.0],
+    },
+}
+
+
+def _tune_hyperparams(model_name: str, base_model, X: np.ndarray, y: np.ndarray):
+    """Run GridSearchCV for model_name. Returns the best estimator."""
+    from sklearn.model_selection import GridSearchCV
+
+    param_grid = _PARAM_GRIDS.get(model_name)
+    if param_grid is None:
+        return base_model
+
+    scoring = "f1"  # F1 balances precision/recall; competition score isn't directly optimizable here
+    grid = GridSearchCV(
+        base_model, param_grid,
+        scoring=scoring, cv=5, n_jobs=-1, refit=True
+    )
+    grid.fit(X, y)
+    logger.info(f"GridSearchCV best params ({model_name}): {grid.best_params_}  f1={grid.best_score_:.3f}")
+    return grid.best_estimator_
+
+
 def train_final_model(
     feature_dicts: List[dict],
     labels: List[int],
     model_name: str,
     threshold: float,
 ) -> Tuple[Any, StandardScaler]:
-    """Train the selected model on ALL data. Returns (fitted_model, fitted_scaler)."""
+    """Train the selected model on ALL data with hyperparameter tuning. Returns (fitted_model, fitted_scaler)."""
     X = features_to_matrix(feature_dicts, ALL_FEATURE_NAMES)
     y = np.array(labels)
     scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
+    X_scaled = clip_outliers(scaler.fit_transform(X))
 
-    models = _build_models()
     import copy
-    model = copy.deepcopy(models.get(model_name, models["logistic_regression"]))
-    model.fit(X_scaled, y)
+    models = _build_models()
+    base_model = copy.deepcopy(models.get(model_name, models["logistic_regression"]))
+
+    if model_name != "rule_based":
+        logger.info(f"Tuning hyperparameters for {model_name}...")
+        model = _tune_hyperparams(model_name, base_model, X_scaled, y)
+    else:
+        model = base_model
+
+    if not hasattr(model, "classes_"):
+        model.fit(X_scaled, y)
+
     return model, scaler
 
 

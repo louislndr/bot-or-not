@@ -50,9 +50,69 @@ def find_optimal_threshold(y_true, y_prob, min_t: float = 0.05, max_t: float = 0
     return best_t, best_score, results
 
 
+def _convert_vendor_format(raw: list) -> dict:
+    """
+    Convert a raw Twitter API tweet list (Indiana University / vendor format)
+    to the competition dataset format expected by score_dataset.
+
+    Each entry in the list is {"created_at": ..., "user": {...twitter user object...}}.
+    Tweet text is not present in this format, so content/temporal features will be 0.
+    Profile features (username, description, follower counts, etc.) work normally.
+    """
+    from datetime import datetime, timezone
+    seen_users = {}
+    for entry in raw:
+        u = entry.get("user", {})
+        uid = str(u.get("id", ""))
+        if not uid or uid in seen_users:
+            continue
+        # Parse account creation date to generate a synthetic timestamp for the "post"
+        created_at_str = entry.get("created_at", "")
+        try:
+            ts = datetime.strptime(created_at_str, "%a %b %d %H:%M:%S +0000 %Y")
+            ts = ts.replace(tzinfo=timezone.utc).isoformat()
+        except Exception:
+            ts = "2019-01-01T00:00:00+00:00"
+
+        seen_users[uid] = {
+            "user": {
+                "id": uid,
+                "username": u.get("screen_name", ""),
+                "name": u.get("name", ""),
+                "description": u.get("description", "") or "",
+                "location": u.get("location", "") or "",
+                "tweet_count": u.get("statuses_count", 0),
+                "z_score": 0.0,
+            },
+            "ts": ts,
+            "lang": u.get("lang", "en") or "en",
+        }
+
+    users = [v["user"] for v in seen_users.values()]
+
+    # Determine dataset language from majority of user langs
+    lang_counts: dict = {}
+    for v in seen_users.values():
+        l = v["lang"]
+        lang_counts[l] = lang_counts.get(l, 0) + 1
+    dataset_lang = max(lang_counts, key=lang_counts.get) if lang_counts else "en"
+    dataset_lang = "fr" if dataset_lang in ("fr",) else "en"
+
+    return {
+        "lang": dataset_lang,
+        "metadata": {},
+        "users": users,
+        "posts": [],  # no tweet text available in this format
+    }
+
+
 def load_dataset(path: str) -> dict:
     with open(path, encoding="utf-8") as f:
-        return json.load(f)
+        raw = json.load(f)
+    # Detect vendor/Indiana University format: top-level list of tweet objects with a "user" key
+    if isinstance(raw, list) and raw and "user" in raw[0]:
+        return _convert_vendor_format(raw)
+    return raw
 
 
 def load_bot_ids(path: str) -> set:

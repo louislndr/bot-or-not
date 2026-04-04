@@ -2,6 +2,7 @@
 Feature extraction: per-user aggregation from posts + profile.
 All features operate at the user level (one vector per user).
 """
+import bisect
 import math
 import random
 import re
@@ -9,7 +10,7 @@ import statistics
 import zlib
 from datetime import datetime, timezone
 from difflib import SequenceMatcher  # used only for name_username_similarity
-from typing import Dict, List, Any, Optional, Set
+from typing import Dict, List, Any, Optional, Set, Tuple
 
 # ─── constants ────────────────────────────────────────────────────────────────
 
@@ -90,6 +91,31 @@ def _jaccard(a: Set[str], b: Set[str]) -> float:
     return len(a & b) / union if union > 0 else 0.0
 
 
+def _temporal_coordination_score(
+    timestamps: List[datetime],
+    user_id: str,
+    global_post_index: List[Tuple[float, str]],
+    global_post_ts_keys: List[float],
+    window_sec: int = 60,
+) -> float:
+    """
+    Fraction of this user's posts that have ≥1 post from a different user within window_sec.
+    High score = posting in lock-step with other accounts (coordination signal).
+    """
+    if not timestamps or not global_post_index:
+        return 0.0
+    coordinated = 0
+    for ts in timestamps:
+        t = ts.timestamp()
+        lo = bisect.bisect_left(global_post_ts_keys, t - window_sec)
+        hi = bisect.bisect_right(global_post_ts_keys, t + window_sec)
+        for other_t, other_uid in global_post_index[lo:hi]:
+            if other_uid != user_id:
+                coordinated += 1
+                break
+    return coordinated / len(timestamps)
+
+
 def extract_features(
     user: dict,
     posts: List[dict],
@@ -97,6 +123,9 @@ def extract_features(
     cross_account_text_counts: Optional[Dict[str, int]] = None,
     cross_account_post_sample: Optional[List[tuple]] = None,
     dataset_lang: str = "en",
+    global_post_index: Optional[List[Tuple[float, str]]] = None,
+    global_post_ts_keys: Optional[List[float]] = None,
+    global_mention_counts: Optional[Dict[str, int]] = None,
 ) -> dict:
     """
     Extract all features for a single user.
@@ -119,8 +148,15 @@ def extract_features(
     feat["username_length"] = len(username)
     # High entropy = random-looking / auto-generated username
     feat["username_entropy"] = _string_entropy(username.lower())
+    # Only flag actual invisible/control chars — NOT regular emojis (common in human names)
     feat["name_has_control_chars"] = int(
-        any(ord(c) < 32 or (ord(c) >= 0x1F000 and ord(c) <= 0x1FFFF) for c in name)
+        any(
+            ord(c) < 32                          # ASCII control chars
+            or ord(c) in (0x200B, 0x200C, 0x200D, 0x200E, 0x200F)  # zero-width chars
+            or (0x2060 <= ord(c) <= 0x206F)      # invisible formatting chars
+            or (0xFFF0 <= ord(c) <= 0xFFFF)      # specials block
+            for c in name
+        )
     )
     feat["name_length"] = len(name)
     feat["description_is_empty"] = int(len(description.strip()) == 0)
@@ -176,6 +212,33 @@ def extract_features(
         feat["hashtag_diversity"] = 1.0
         feat["max_hashtag_freq"] = 0.0
     feat["hashtag_count_total"] = len(all_hashtags)
+
+    # LLM-bot signals: always trail posts with hashtags + consistent count per post
+    if n_posts > 0:
+        # Fraction of posts where all hashtags appear in the last 30% of the text
+        trailing_count = 0
+        for t, hs in zip(texts, hashtags_per_post):
+            if not hs:
+                continue
+            cutoff = int(len(t) * 0.70)
+            # find position of first hashtag
+            first_ht_pos = min((t.lower().find(h) for h in hs if t.lower().find(h) >= 0), default=len(t))
+            if first_ht_pos >= cutoff:
+                trailing_count += 1
+        posts_with_ht = sum(1 for hs in hashtags_per_post if hs)
+        feat["hashtag_trailing_rate"] = trailing_count / posts_with_ht if posts_with_ht > 0 else 0.0
+
+        # Consistency of hashtag count per post (low stdev = bot uses same # of tags every time)
+        ht_counts = [len(hs) for hs in hashtags_per_post if hs]
+        if len(ht_counts) >= 3:
+            ht_mean = statistics.mean(ht_counts)
+            ht_stdev = statistics.stdev(ht_counts)
+            feat["hashtag_count_consistency"] = 1.0 - min(ht_stdev / ht_mean, 1.0) if ht_mean > 0 else 0.0
+        else:
+            feat["hashtag_count_consistency"] = 0.0
+    else:
+        feat["hashtag_trailing_rate"] = 0.0
+        feat["hashtag_count_consistency"] = 0.0
 
     # C: Repeated hashtag pattern in the same order (tuple repeat)
     if n_posts >= 2:
@@ -323,16 +386,47 @@ def extract_features(
         # C: URL placeholder always in same structural position
         url_bearing = [t for t in texts if "https://t.co/twitter_link" in t]
         if len(url_bearing) >= 2:
-            # Fraction where URL is at end of post (common bot pattern)
             feat["url_always_at_end"] = sum(
                 1 for t in url_bearing if t.strip().endswith("https://t.co/twitter_link")
             ) / len(url_bearing)
         else:
             feat["url_always_at_end"] = 0.0
+
+        # ── Network / mention graph features ─────────────────────────────────
+        all_mentions = [m.lower() for t in texts for m in MENTION_RE.findall(t)]
+        if all_mentions:
+            mention_counter: Dict[str, int] = {}
+            for m in all_mentions:
+                mention_counter[m] = mention_counter.get(m, 0) + 1
+            unique_mentions = len(mention_counter)
+            # How varied are the targets? Low = always same account
+            feat["mention_unique_count"] = unique_mentions
+            feat["mention_diversity"] = unique_mentions / len(all_mentions)
+            # Fraction of all mentions going to the single top target
+            feat["mention_top_account_rate"] = max(mention_counter.values()) / len(all_mentions)
+            # Shared campaign target: fraction of mentions going to accounts
+            # that are frequently targeted across the full dataset (≥3 users)
+            if global_mention_counts:
+                coordinated = sum(
+                    cnt for target, cnt in mention_counter.items()
+                    if global_mention_counts.get(target, 0) >= 3
+                )
+                feat["shared_mention_targets_score"] = coordinated / len(all_mentions)
+            else:
+                feat["shared_mention_targets_score"] = 0.0
+        else:
+            feat["mention_unique_count"] = 0
+            feat["mention_diversity"] = 1.0
+            feat["mention_top_account_rate"] = 0.0
+            feat["shared_mention_targets_score"] = 0.0
     else:
         feat["link_rate"] = 0.0
         feat["mention_rate"] = 0.0
         feat["url_always_at_end"] = 0.0
+        feat["mention_unique_count"] = 0
+        feat["mention_diversity"] = 1.0
+        feat["mention_top_account_rate"] = 0.0
+        feat["shared_mention_targets_score"] = 0.0
 
     # ── A: Temporal features ──────────────────────────────────────────────────
     if posts:
@@ -400,6 +494,14 @@ def extract_features(
                 1 for ts in timestamps if ts.timestamp() <= one_hour_later
             )
             feat["time_span_minutes"] = span_sec / 60.0
+
+            uid = user.get("id", "")
+            if global_post_index is not None and global_post_ts_keys is not None:
+                feat["temporal_coordination_score"] = _temporal_coordination_score(
+                    timestamps, uid, global_post_index, global_post_ts_keys
+                )
+            else:
+                feat["temporal_coordination_score"] = 0.0
         except Exception:
             feat["unique_hours"] = 0
             feat["posting_hour_entropy"] = 0.0
@@ -412,6 +514,7 @@ def extract_features(
             feat["fixed_gap_score"] = 0.0
             feat["posts_in_first_hour"] = len(posts)
             feat["time_span_minutes"] = 0.0
+            feat["temporal_coordination_score"] = 0.0
     else:
         feat["unique_hours"] = 0
         feat["posting_hour_entropy"] = 0.0
@@ -424,6 +527,7 @@ def extract_features(
         feat["fixed_gap_score"] = 0.0
         feat["posts_in_first_hour"] = 0
         feat["time_span_minutes"] = 0.0
+        feat["temporal_coordination_score"] = 0.0
 
     # ── C: Structural / template detection ───────────────────────────────────
     if n_posts >= 2:
@@ -513,12 +617,12 @@ def extract_features(
     if n_posts > 0:
         joined_lower = " ".join(texts).lower()
         feat["quote_tweet_ratio"] = sum(1 for t in texts if t.startswith('"')) / n_posts
-        feat["generic_phrase_count"] = sum(
-            1 for phrase in GENERIC_PHRASES if phrase in joined_lower
-        )
+        total_words = sum(len(t.split()) for t in texts)
+        phrase_hits = sum(1 for phrase in GENERIC_PHRASES if phrase in joined_lower)
+        feat["generic_phrase_rate"] = phrase_hits / total_words if total_words > 0 else 0.0
     else:
         feat["quote_tweet_ratio"] = 0.0
-        feat["generic_phrase_count"] = 0
+        feat["generic_phrase_rate"] = 0.0
 
     return feat
 
@@ -554,6 +658,40 @@ def build_feature_matrix(dataset: dict, bot_ids: set = None):
             set(p["text"].lower().split()) for p in user_posts[:30]
         ]
 
+    # ── Build global sorted (timestamp, user_id) index for temporal coordination ─
+    _raw_events: List[Tuple[float, str]] = []
+    for uid, user_posts in posts_by_user.items():
+        for p in user_posts:
+            try:
+                ts = _parse_dt(p["created_at"]).timestamp()
+                _raw_events.append((ts, uid))
+            except Exception:
+                pass
+    _raw_events.sort(key=lambda x: x[0])
+    global_post_index: List[Tuple[float, str]] = _raw_events
+    global_post_ts_keys: List[float] = [e[0] for e in _raw_events]
+
+    # ── Build global mention target → user count index ────────────────────────
+    # mention_target → number of distinct users who mention it
+    mention_target_user_counts: Dict[str, int] = {}
+    _target_to_users: Dict[str, Set[str]] = {}
+    for uid, user_posts in posts_by_user.items():
+        for p in user_posts:
+            for m in MENTION_RE.findall(p["text"].lower()):
+                _target_to_users.setdefault(m, set()).add(uid)
+    mention_target_user_counts = {t: len(uids) for t, uids in _target_to_users.items()}
+
+    # ── Build hashtag → users + top hashtag per user (single pass) ────────────
+    hashtag_to_users: Dict[str, Set[str]] = {}
+    user_top_hashtag: Dict[str, Optional[str]] = {}
+    for uid, user_posts in posts_by_user.items():
+        ht_counter: Dict[str, int] = {}
+        for p in user_posts:
+            for ht in HASHTAG_RE.findall(p["text"].lower()):
+                ht_counter[ht] = ht_counter.get(ht, 0) + 1
+                hashtag_to_users.setdefault(ht, set()).add(uid)
+        user_top_hashtag[uid] = max(ht_counter, key=ht_counter.get) if ht_counter else None
+
     feature_dicts = []
     labels = [] if bot_ids is not None else None
     user_ids = []
@@ -580,6 +718,9 @@ def build_feature_matrix(dataset: dict, bot_ids: set = None):
             cross_account_text_counts=cross_account_text_counts,
             cross_account_post_sample=sample_posts,
             dataset_lang=dataset_lang,
+            global_post_index=global_post_index,
+            global_post_ts_keys=global_post_ts_keys,
+            global_mention_counts=mention_target_user_counts,
         )
         feat["_user_id"] = uid
         feat["_username"] = user.get("username", "")
@@ -589,5 +730,30 @@ def build_feature_matrix(dataset: dict, bot_ids: set = None):
         user_ids.append(uid)
         if bot_ids is not None:
             labels.append(1 if uid in bot_ids else 0)
+
+    # ── Second pass: cluster features ────────────────────────────────────────
+    # Requires all individual features to be computed first.
+    uid_to_feat: Dict[str, dict] = {fd["_user_id"]: fd for fd in feature_dicts}
+
+    def _is_suspicious(fd: dict) -> bool:
+        return (
+            fd.get("near_duplicate_ratio", 0) > 0.4
+            or fd.get("hashtag_sequence_repeat", 0) > 0.5
+            or fd.get("cross_account_dup_score", 0) > 0.15
+        )
+
+    for fd in feature_dicts:
+        uid = fd["_user_id"]
+        top_ht = user_top_hashtag.get(uid)
+        if top_ht is not None:
+            cluster_members = hashtag_to_users[top_ht]
+            fd["cluster_size"] = len(cluster_members)
+            fd["cluster_bot_density"] = (
+                sum(1 for m_uid in cluster_members if _is_suspicious(uid_to_feat[m_uid]))
+                / len(cluster_members)
+            )
+        else:
+            fd["cluster_size"] = 0
+            fd["cluster_bot_density"] = 0.0
 
     return feature_dicts, labels, user_ids
